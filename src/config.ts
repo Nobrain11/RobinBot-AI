@@ -21,6 +21,11 @@ export const config = {
   buyLink: process.env.BUY_LINK ?? "Not set yet",
   chartLink: process.env.CHART_LINK ?? "Not set yet",
   socialsLink: process.env.SOCIALS_LINK ?? "Not set yet",
+  logChatId: process.env.LOG_CHAT_ID ? Number(process.env.LOG_CHAT_ID) : undefined,
+  badWords: (process.env.BAD_WORDS ?? "")
+    .split(",")
+    .map((w) => w.trim().toLowerCase())
+    .filter(Boolean),
 };
 
 export function isAdmin(userId: number | undefined): boolean {
