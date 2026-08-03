@@ -3,11 +3,15 @@ import { config } from "./config.js";
 import { registerCommands } from "./commands.js";
 import { registerWelcome } from "./welcome.js";
 import { registerAiChat } from "./aiChat.js";
+import { registerModeration } from "./moderation.js";
+import { registerAdminCommands } from "./adminCommands.js";
 
 const bot = new Bot(config.botToken);
 
 registerCommands(bot);
+registerAdminCommands(bot);
 registerWelcome(bot);
+registerModeration(bot);
 registerAiChat(bot);
 
 bot.catch((err) => {
