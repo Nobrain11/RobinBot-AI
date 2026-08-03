@@ -1,5 +1,6 @@
 import { Bot, Context } from "grammy";
 import { config, isAdmin } from "./config.js";
+import { isProfanityFilterEnabled } from "./menuState.js";
 
 // ---- Per-chat, per-user offender tracking (in-memory) ----
 type Offender = { warns: number };
@@ -39,7 +40,7 @@ export type Verdict =
   | { type: "fake_contract"; found: string[] }
   | { type: "bad_word" };
 
-export function evaluateMessage(text: string): Verdict {
+export function evaluateMessage(text: string, chatId: number): Verdict {
   const lower = text.toLowerCase();
 
   if (INVITE_LINK_RE.test(text)) {
@@ -59,7 +60,7 @@ export function evaluateMessage(text: string): Verdict {
     }
   }
 
-  if (config.badWords.length > 0 && config.badWords.some((w) => lower.includes(w))) {
+  if (isProfanityFilterEnabled(chatId) && config.badWords.length > 0 && config.badWords.some((w) => lower.includes(w))) {
     return { type: "bad_word" };
   }
 
@@ -138,7 +139,7 @@ export function registerModeration(bot: Bot) {
   bot.on("message:text").filter(
     (ctx) => ctx.chat.type !== "private" && !isAdmin(ctx.from?.id),
     async (ctx) => {
-      const verdict = evaluateMessage(ctx.message.text);
+      const verdict = evaluateMessage(ctx.message.text, ctx.chat.id);
       if (verdict.type === "clean") return;
       await warnMuteOrBan(ctx, verdict);
     },
