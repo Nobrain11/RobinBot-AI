@@ -14,30 +14,6 @@ function pick(list: string[]): string {
 }
 
 export function registerCommands(bot: Bot) {
-  bot.command("start", (ctx) =>
-    ctx.reply(
-      "Welcome to Build Mode. I'm RobinBot — mention me any time (@RobinBot ...) or try /help for what I can do.",
-    ),
-  );
-
-  bot.command("help", (ctx) =>
-    ctx.reply(
-      [
-        "Commands:",
-        "/about — what is this project",
-        "/contract — token contract address",
-        "/buy — where to buy",
-        "/chart — price chart link",
-        "/socials — official links",
-        "/gm /gn — vibes",
-        "/random — random Build Mode line",
-        "/meme — meme idea (coming soon)",
-        "",
-        "Or just mention me: @RobinBot explain Build Mode",
-      ].join("\n"),
-    ),
-  );
-
   bot.command("about", (ctx) =>
     ctx.reply(
       `${config.projectName} — a community of Builders. Profit Not Found. Community Found. Ask me anything with @RobinBot.`,
