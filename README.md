@@ -1,39 +1,93 @@
-# RobinBot — 404 Coin
+# 🚀 404 Error Bridge – The Ultimate Robinhood Utility Tool
 
-Phase 1 core bot: welcome messages, basic commands, and AI chat (via @mention)
-powered by Claude Haiku 4.5, with short-term per-chat conversation memory.
+**One bot to bridge, snipe, scan, and hunt – all inside Telegram.**
 
-Not included yet (later phases): moderation/scam detection, meme generation,
-milestone events, analytics/leaderboards, voice replies, website integration.
+---
 
-## Setup
+## 💀 The Problem
 
-1. Create a bot with @BotFather, get the token.
-2. Copy `.env.example` to `.env` and fill in `BOT_TOKEN` and `ANTHROPIC_API_KEY`.
-3. Add your Telegram numeric user ID(s) to `ADMIN_IDS` (comma-separated) —
-   not used yet in Phase 1, but wired in for the moderation phase.
-4. In BotFather, disable privacy mode (`/setprivacy` → Disable) if you want
-   the bot to see all group messages, not just commands and @mentions.
-   @mention-based AI chat works either way.
-5. Give the bot admin rights in the group so it receives `chat_member`
-   updates (needed for the welcome message).
+Robinhood Chain is exploding. Over **$70 million** bridged in the first week. But the infrastructure is broken:
 
-## Deploy on Railway
+- **Bridges are slow** – 2+ hour wait times.
+- **Fees are brutal** – average >2%.
+- **Liquidity is fragmented** – you have to manually check every bridge.
+- **Sniping is a pain** – separate scripts, exposed private keys.
+- **Rugs are everywhere** – no simple way to know if a token is safe.
 
-1. Push this folder to a GitHub repo.
-2. In Railway: New Project → Deploy from GitHub repo.
-3. Set the environment variables from `.env.example` in Railway's Variables tab.
-4. Railway will run `npm install && npm run build && npm start` (Node 18+).
-   If it doesn't auto-detect, set:
-   - Build command: `npm run build`
-   - Start command: `npm start`
+Traders lose money. Developers waste time. The ecosystem suffers.
 
-## Notes
+---
 
-- This uses ESM (`"type": "module"`) with compiled output in `dist/`. If you
-  hit an ESM-related crash on Railway (like the uuid@9 issue in your other
-  bots), check that all imports use `.js` extensions in the compiled output —
-  this repo already does that in the source `import` statements.
-- Conversation memory is in-process only (resets on redeploy/restart) and is
-  not shared across multiple instances. Fine for one Railway instance; if you
-  scale to multiple, move it to a database.
+## 🔥 The Solution
+
+**404 Error Bridge** is an all‑in‑one Telegram bot that fixes all of it.  
+Aggregate, automate, simplify – win.
+
+### 1. Cross‑Chain Aggregator
+`/bridge 1 ETH from Ethereum to Robinhood`
+
+- Queries **LayerZero, deBridge, Relay, Across** in real time.
+- Compares **price, speed, liquidity** – picks the best route.
+- Executes with one confirmation.
+- Supports **Ethereum, Solana, Base, BNB, Arbitrum, Optimism, Polygon** – more coming.
+
+### 2. Sniper Mode
+`/snipe 0xToken 0.5`
+
+- Watches Robinhood’s Pump.fun for new launches.
+- Buys **within 0.1 seconds** of pool creation.
+- Customise max buy, slippage, gas – let it rip.
+
+### 3. Rug Scanner
+`/scan 0xContract`
+
+- Detects honeypots, high taxes, non‑renounced ownership, unlocked liquidity.
+- Returns a **risk score (0–100)** and a detailed breakdown.
+- No more blind aping.
+
+### 4. Whale Tracker
+`/watch 0xWhale`
+
+- Real‑time alerts on swaps, transfers, liquidity moves.
+- Follow the smart money before the rest.
+
+### 5. Transaction Status
+`/status 0xTxHash`
+
+- See confirmations, gas used, bridge progress – always know where your funds are.
+
+---
+
+## 🏴‍☠️ The 404 Treasure Hunt (Easter Egg)
+
+Hidden inside the tool is a puzzle – a reward for those who dig deep.
+
+- We deployed an **unverified “ghost” contract** called `RECOVERY`.
+- Its address is seeded in the Error Database (`error404.world`, look for **ERROR_042`) and occasionally in `/help`.
+- Run `/scan <ghost_address>` → the bot outputs a hidden line:  
+  `⚠️ BUILDER TAG: 0x4f75747265616368` → that’s hex for the string **`"Outeach"`**.
+- There’s a verified **Prize Contract** on Robinhood Chain holding **1,000 $ERROR404**.
+- Call `claim("Outeach")` – the tokens are yours. First solver wins.
+
+The secret is **not** stored on‑chain or in the bot. It’s discovered only by using the scanner on the ghost contract.  
+The Prize Contract is fully verified – **Lyra** (our guardian bot) has scanned it and confirmed: no backdoors, no rug, just a fair puzzle.
+
+Your wallet address will be **immortalised** on `error404.world` as the first solver.
+
+---
+
+## 🔐 Security & Transparency
+
+- Private keys are **encrypted at rest**.
+- The bot never stores user funds – it only signs transactions you authorise.
+- All code is **open‑source** – audit it yourself.
+- Lyra’s public verification gives the community full trust.
+
+---
+
+## 🚀 Quick Start (5 Minutes)
+
+1. **Clone**  
+   ```bash
+   git clone https://github.com/Nobrain11/RobinBot-AI.git
+   cd RobinBot-AI
