@@ -1,5 +1,6 @@
 import { Bot } from "grammy";
 import { WELCOME_MESSAGE } from "./persona.js";
+import { recordJoin, milestoneMessage } from "./analytics.js";
 
 export function registerWelcome(bot: Bot) {
   bot.on("chat_member", async (ctx) => {
@@ -15,5 +16,10 @@ export function registerWelcome(bot: Bot) {
     const mention = user.username ? `@${user.username}` : user.first_name;
 
     await ctx.reply(`${mention}\n\n${WELCOME_MESSAGE}`);
+
+    const { milestone } = recordJoin(ctx.chat.id);
+    if (milestone) {
+      await ctx.reply(milestoneMessage(milestone));
+    }
   });
 }
