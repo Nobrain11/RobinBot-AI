@@ -138,9 +138,12 @@ async function warnMuteOrBan(ctx: Context, verdict: Verdict) {
 export function registerModeration(bot: Bot) {
   bot.on("message:text").filter(
     (ctx) => ctx.chat.type !== "private" && !isAdmin(ctx.from?.id),
-    async (ctx) => {
+    async (ctx, next) => {
       const verdict = evaluateMessage(ctx.message.text, ctx.chat.id);
-      if (verdict.type === "clean") return;
+      if (verdict.type === "clean") {
+        await next();
+        return;
+      }
       await warnMuteOrBan(ctx, verdict);
     },
   );
