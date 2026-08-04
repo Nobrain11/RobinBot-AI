@@ -23,9 +23,15 @@ bot.catch((err) => {
 async function launch() {
   while (true) {
     try {
+      // Clears any leftover webhook and stale queued updates so a redeploy
+      // doesn't race with the previous container's long-polling connection.
       await bot.api.deleteWebhook({ drop_pending_updates: true });
+
+      // bot.start() only resolves when bot.stop() is called manually, so
+      // awaiting it here means any crash inside the polling loop is caught
+      // below instead of becoming an unhandled rejection that kills the process.
       await bot.start({
-        allowed_updates: ["message", "chat_member"],
+        allowed_updates: ["message", "chat_member", "callback_query"],
         onStart: (info) => console.log(`RobinBot online as @${info.username}`),
       });
       break;
